@@ -23,11 +23,32 @@ optional<STUDENT_DATA> readStudent(istream& stream) {
     getline(lineStream, firstName, ',');
     getline(lineStream, lastName, ',');
 
-    return STUDENT_DATA { .firstName = firstName, .lastName = lastName };
+#ifdef PRE_RELEASE
+    string email;
+    getline(lineStream, email, ',');
+#endif
+
+    return STUDENT_DATA {
+        .firstName = firstName
+        , .lastName = lastName
+#ifdef PRE_RELEASE
+        , .email = email
+#endif
+    };
 }
 
 int main(int argc, char* argv[]) {
+#ifdef PRE_RELEASE
+    const string filename = "StudentData_Emails.txt";
+#else
     const string filename = "StudentData.txt";
+#endif
+
+#ifdef PRE_RELEASE
+    cout << "Running in pre-release mode" << endl;
+#else
+    cout << "Running in standard mode" << endl;
+#endif
 
     ifstream fin;
     fin.open(filename);
