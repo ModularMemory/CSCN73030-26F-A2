@@ -72,7 +72,13 @@ int main(int argc, char* argv[]) {
 #ifdef _DEBUG
     cout << "Parsed " << students.size() << " students" << endl;
     for (const auto& student : students) {
-        cout << "Student: " << student.firstName << ", " << student.lastName << endl;
+        cout << "Student: "
+            << student.firstName
+            << ", " << student.lastName
+#ifdef PRE_RELEASE
+            << ", " << student.email
+#endif
+            << endl;
     }
 #endif
 
